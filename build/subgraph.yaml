@@ -1,0 +1,28 @@
+specVersion: 0.0.5
+schema:
+  file: schema.graphql
+dataSources:
+  - kind: ethereum
+    name: NFTMarketplace
+    network: goerli
+    source:
+      address: "0xB3ef5d98B6AC0688F4CECDAdd618419f9B08f258"
+      abi: NFTMarketplace
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - MarketItemCreated
+        - MarketItemSold
+      abis:
+        - name: NFTMarketplace
+          file: NFTMarketplace\abis\NFTMarketplace.json
+      eventHandlers:
+        - event: MarketItemCreated(indexed uint256,indexed address,indexed
+            uint256,address,address,uint256,uint8)
+          handler: handleMarketItemCreated
+        - event: MarketItemSold(indexed uint256,indexed address,indexed
+            uint256,address,address,uint256,uint8)
+          handler: handleMarketItemSold
+      file: NFTMarketplace\NFTMarketplace.wasm
